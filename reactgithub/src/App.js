@@ -1,8 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 
 // components
 import UserCard from './components/UserCard';
+
+const Container = styled.div`
+  width: 100%;
+  margin-top: 10%;
+`;
 
 class App extends React.Component {
   constructor() {
@@ -35,10 +41,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         {/* {console.log(this.state.user)} */}
         <UserCard user={this.state.user} followers={this.state.followers} />
-      </div>
+      </Container>
     )
   }
 }
