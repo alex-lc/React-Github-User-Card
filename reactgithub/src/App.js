@@ -8,6 +8,12 @@ import UserCard from './components/UserCard';
 const Container = styled.div`
   width: 100%;
   margin-top: 10%;
+
+  .search {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+  }
 `;
 
 class App extends React.Component {
@@ -15,8 +21,32 @@ class App extends React.Component {
     super();
     this.state = {
       user: [],
-      followers: []
+      followers: [],
+      query: ''
     }
+  }
+
+  handleChanges = (e) => {
+    this.setState({ query: e.target.value })
+  }
+
+  fetchUser = (e) => {
+    e.preventDefault();
+    axios.get(`https://api.github.com/users/${this.state.query}`)
+      .then((res) => {
+        this.setState({ user: res.data })
+      })
+      .catch((err) => {
+        console.log(`There was an error: ${err}`);
+      })
+
+    axios.get(`https://api.github.com/users/${this.state.query}/followers`)
+      .then((res) => {
+        this.setState({ followers: res.data });
+      })
+      .catch((err) => {
+        console.log(`There was an error: ${err}`);
+      })
   }
 
   componentDidMount() {
@@ -39,10 +69,17 @@ class App extends React.Component {
       })
   }
 
+  componentDidUpdate(prevPorps, prevState) {
+
+  }
+
   render() {
     return (
       <Container>
-        {/* {console.log(this.state.user)} */}
+        <div className="search">
+          <input onChange={this.handleChanges} type="text" name="githubUser" />
+          <button onClick={this.fetchUser}>Search</button>
+        </div>
         <UserCard user={this.state.user} followers={this.state.followers} />
       </Container>
     )
