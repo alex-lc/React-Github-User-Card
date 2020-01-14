@@ -13,6 +13,40 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     margin-bottom: 5rem;
+
+    button {
+      margin: 0 1rem;
+      border: none;
+      border-radius: 0.3rem;
+      transition: all 300ms;
+
+      &:hover {
+        transition: opacity 300ms;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+    }
+
+    input[type=text] {
+      background: #4d4d4d;
+      border: none;
+      height: 3rem;
+      padding: 0.5rem;
+      color: #ccc;
+    }
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 300;
+      color: #ccc;
+      margin-bottom: 2rem;
+    }
   }
 `;
 
@@ -76,6 +110,9 @@ class App extends React.Component {
   render() {
     return (
       <Container>
+        <div className="logo">
+          <h1>GitHub Profile Search</h1>
+        </div>
         <div className="search">
           <input onChange={this.handleChanges} type="text" name="githubUser" />
           <button onClick={this.fetchUser}>Search</button>
